@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>TaskFlow — Lista de Tareas</title>
+  <link rel="stylesheet" href="styles.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+  <!-- Vista de Autenticación -->
+  <main id="auth-view" class="auth-container">
+    <div class="auth-card">
+      <div class="brand-header">
+        <div class="brand-logo" aria-hidden="true">✓</div>
+        <h1>TaskFlow</h1>
+        <p id="auth-subtitle">Inicia sesión para gestionar tus tareas</p>
+      </div>
+
+      <div class="auth-tabs" role="tablist">
+        <button id="tab-login" class="tab-btn active" type="button" role="tab" aria-selected="true">Iniciar Sesión</button>
+        <button id="tab-register" class="tab-btn" type="button" role="tab" aria-selected="false">Registrarse</button>
+      </div>
+
+      <form id="auth-form" novalidate>
+        <div id="name-group" class="form-group hidden">
+          <label for="auth-name">Nombre completo</label>
+          <input type="text" id="auth-name" placeholder="Ej. Ana Martínez" autocomplete="name" />
+        </div>
+
+        <div class="form-group">
+          <label for="auth-email">Correo electrónico</label>
+          <input type="email" id="auth-email" placeholder="nombre@ejemplo.com" required autocomplete="email" />
+        </div>
+
+        <div class="form-group">
+          <label for="auth-password">Contraseña</label>
+          <input type="password" id="auth-password" placeholder="Mínimo 6 caracteres" required autocomplete="current-password" />
+        </div>
+
+        <p id="auth-error" class="error-msg" role="alert"></p>
+
+        <button type="submit" id="auth-submit-btn" class="btn btn-primary btn-full">Entrar</button>
+      </form>
+
+      <div class="divider"><span>o</span></div>
+
+      <button type="button" id="demo-login-btn" class="btn btn-secondary btn-full">
+        Entrar con cuenta de demostración
+      </button>
+    </div>
+  </main>
+
+  <!-- Vista Principal de la App -->
+  <div id="app-view" class="app-wrapper hidden">
+    <header class="topbar">
+      <div class="topbar-inner">
+        <div class="topbar-brand">
+          <span class="brand-logo small">✓</span>
+          <span class="brand-title">TaskFlow</span>
+        </div>
+        <div class="user-menu">
+          <div class="user-info">
+            <span id="user-avatar" class="avatar">U</span>
+            <div>
+              <p id="user-display-name" class="user-name">Usuario</p>
+              <p id="user-display-email" class="user-email">usuario@ejemplo.com</p>
+            </div>
+          </div>
+          <button id="logout-btn" class="btn btn-outline btn-sm" type="button">Cerrar sesión</button>
+        </div>
+      </div>
+    </header>
+
+    <main class="main-content">
+      <!-- Resumen rápido -->
+      <section class="stats-grid" aria-label="Resumen de tareas">
+        <div class="stat-card">
+          <span class="stat-label">Total</span>
+          <strong id="stat-total" class="stat-value">0</strong>
+        </div>
+        <div class="stat-card">
+          <span class="stat-label">Pendientes</span>
+          <strong id="stat-pending" class="stat-value">0</strong>
+        </div>
+        <div class="stat-card">
+          <span class="stat-label">Completadas</span>
+          <strong id="stat-completed" class="stat-value">0</strong>
+        </div>
+      </section>
+
+      <!-- Formulario para agregar tarea -->
+      <section class="task-creator-card">
+        <form id="task-form" class="task-form">
+          <input
+            type="text"
+            id="task-title"
+            placeholder="¿Qué necesitas hacer hoy?"
+            required
+            maxlength="140"
+          />
+          <select id="task-priority" aria-label="Prioridad">
+            <option value="media">Prioridad: Media</option>
+            <option value="alta">Prioridad: Alta</option>
+            <option value="baja">Prioridad: Baja</option>
+          </select>
+          <input type="date" id="task-due" aria-label="Fecha límite" />
+          <button type="submit" class="btn btn-primary">Agregar</button>
+        </form>
+      </section>
+
+      <!-- Controles de filtro y búsqueda -->
+      <section class="toolbar">
+        <div class="filter-group" role="group" aria-label="Filtrar tareas">
+          <button type="button" class="filter-btn active" data-filter="all">Todas</button>
+          <button type="button" class="filter-btn" data-filter="pending">Pendientes</button>
+          <button type="button" class="filter-btn" data-filter="completed">Completadas</button>
+        </div>
+        <div class="toolbar-actions">
+          <input type="search" id="search-input" placeholder="Buscar tarea..." aria-label="Buscar tarea" />
+          <button type="button" id="clear-completed-btn" class="btn btn-ghost btn-sm">Limpiar completadas</button>
+        </div>
+      </section>
+
+      <!-- Lista de tareas -->
+      <section class="tasks-section">
+        <ul id="task-list" class="task-list"></ul>
+        <div id="empty-state" class="empty-state hidden">
+          <p>No hay tareas que mostrar en esta vista.</p>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>
